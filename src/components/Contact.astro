@@ -1,0 +1,117 @@
+---
+const EMAIL = "oyetoroedward@gmail.com";
+const GITHUB = "https://github.com/eddy-jordan";
+// TODO: replace with your own Formspree form ID.
+// Sign up free at https://formspree.io, create a form, and swap "YOUR_FORM_ID" below.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+---
+
+<section id="contact" class="relative px-6 py-24 border-t border-white/5">
+  <div class="mx-auto max-w-3xl">
+    <p class="font-display text-sm tracking-[0.3em] uppercase text-cyan-glow mb-4">Contact</p>
+    <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+      Let's build something
+    </h2>
+    <p class="text-ink-200 mb-10">
+      Have a project, role, or collaboration in mind? Send a message and I'll get back to you.
+    </p>
+
+    <form
+      id="contact-form"
+      action={FORMSPREE_ENDPOINT}
+      method="POST"
+      class="glass rounded-2xl p-8 grid gap-5"
+    >
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label for="name" class="block text-sm text-ink-200 mb-2">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            class="w-full rounded-lg bg-ink-900 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-ink-400 focus:outline-none focus:border-violet-glow"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm text-ink-200 mb-2">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            class="w-full rounded-lg bg-ink-900 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-ink-400 focus:outline-none focus:border-violet-glow"
+            placeholder="you@example.com"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm text-ink-200 mb-2">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          class="w-full rounded-lg bg-ink-900 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-ink-400 focus:outline-none focus:border-violet-glow resize-none"
+          placeholder="Tell me a bit about what you're looking for..."
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="justify-self-start px-6 py-3 rounded-full font-medium text-sm bg-gradient-to-r from-violet-500 to-cyan-400 text-ink-950 hover:opacity-90 transition-opacity"
+      >
+        Send Message
+      </button>
+
+      <p id="form-status" class="text-sm hidden"></p>
+    </form>
+
+    <div class="mt-8 flex flex-wrap gap-6 text-sm text-ink-200">
+      <a href={`mailto:${EMAIL}`} class="hover:text-white transition-colors">{EMAIL}</a>
+      <a href={GITHUB} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+        github.com/eddy-jordan
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const status = document.getElementById("form-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!status) return;
+
+    const action = form.getAttribute("action") ?? "";
+    if (action.includes("YOUR_FORM_ID")) {
+      status.textContent = "Contact form isn't wired up yet — email me directly for now.";
+      status.className = "text-sm text-amber-400";
+      status.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      const res = await fetch(action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        status.textContent = "Message sent — thank you! I'll reply soon.";
+        status.className = "text-sm text-emerald-400";
+        form.reset();
+      } else {
+        status.textContent = "Something went wrong. Please email me directly.";
+        status.className = "text-sm text-red-400";
+      }
+    } catch {
+      status.textContent = "Something went wrong. Please email me directly.";
+      status.className = "text-sm text-red-400";
+    }
+    status.classList.remove("hidden");
+  });
+</script>

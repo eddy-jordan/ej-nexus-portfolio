@@ -1,0 +1,125 @@
+---
+import { artPieces } from "../data/art";
+const BASE = import.meta.env.BASE_URL;
+---
+
+<section id="art" class="relative px-6 py-24 border-t border-white/5">
+  <div class="mx-auto max-w-6xl">
+    <p class="font-display text-sm tracking-[0.3em] uppercase text-cyan-glow mb-4">Art</p>
+    <h2 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-3">
+      Hand-drawn, ink and ballpoint
+    </h2>
+    <p class="text-ink-200 max-w-2xl mb-10">
+      A selection of character and portrait studies — the same eye for composition and
+      detail that carries over into interfaces and brand work.
+    </p>
+
+    <div class="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
+      {artPieces.map((art, i) => (
+        <button
+          type="button"
+          class="art-thumb block w-full break-inside-avoid rounded-xl overflow-hidden border border-white/10 group relative"
+          data-index={i}
+        >
+          <img
+            src={`${BASE}${art.src.replace(/^\//, "")}`}
+            alt={art.title}
+            loading="lazy"
+            class="w-full h-auto group-hover:scale-105 transition-transform duration-300"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <div class="text-left">
+              <p class="font-display font-semibold text-white text-sm">{art.title}</p>
+              <p class="text-xs text-ink-400">{art.medium}</p>
+            </div>
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div
+    id="lightbox"
+    class="hidden fixed inset-0 z-[60] bg-ink-950/95 backdrop-blur-sm items-center justify-center p-6"
+  >
+    <button id="lightbox-close" aria-label="Close" class="absolute top-6 right-6 w-10 h-10 rounded-full border border-white/15 text-white flex items-center justify-center hover:bg-white/10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <button id="lightbox-prev" aria-label="Previous" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-white/15 text-white flex items-center justify-center hover:bg-white/10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button id="lightbox-next" aria-label="Next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-white/15 text-white flex items-center justify-center hover:bg-white/10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <div class="max-w-3xl max-h-[85vh] flex flex-col items-center gap-4">
+      <img id="lightbox-img" src="" alt="" class="max-h-[70vh] w-auto rounded-lg border border-white/10" />
+      <div class="text-center">
+        <p id="lightbox-title" class="font-display font-semibold text-white"></p>
+        <p id="lightbox-medium" class="text-sm text-cyan-glow"></p>
+        <p id="lightbox-desc" class="text-sm text-ink-400 mt-1 max-w-lg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ artPieces, BASE }}>
+  const thumbs = document.querySelectorAll(".art-thumb");
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightbox-img");
+  const titleEl = document.getElementById("lightbox-title");
+  const mediumEl = document.getElementById("lightbox-medium");
+  const descEl = document.getElementById("lightbox-desc");
+  const closeBtn = document.getElementById("lightbox-close");
+  const prevBtn = document.getElementById("lightbox-prev");
+  const nextBtn = document.getElementById("lightbox-next");
+
+  let current = 0;
+
+  function open(index) {
+    current = index;
+    const art = artPieces[current];
+    img.src = `${BASE}${art.src.replace(/^\//, "")}`;
+    img.alt = art.title;
+    titleEl.textContent = art.title;
+    mediumEl.textContent = art.medium;
+    descEl.textContent = art.description;
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  function step(delta) {
+    open((current + delta + artPieces.length) % artPieces.length);
+  }
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => open(Number(thumb.dataset.index)));
+  });
+
+  closeBtn?.addEventListener("click", close);
+  prevBtn?.addEventListener("click", () => step(-1));
+  nextBtn?.addEventListener("click", () => step(1));
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (lightbox?.classList.contains("hidden")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>

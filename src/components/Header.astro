@@ -1,0 +1,73 @@
+---
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#art", label: "Art" },
+  { href: "#resume", label: "Resume" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-ink-950/80 backdrop-blur-md">
+  <nav class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="font-display font-semibold text-lg tracking-tight">
+      ej<span class="gradient-text">_nexus</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm text-ink-200">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class="hover:text-white transition-colors">{link.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <button
+      id="menu-toggle"
+      class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-white/10 text-ink-200"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <ul id="mobile-menu" class="hidden md:hidden flex-col gap-1 px-6 pb-4 text-sm text-ink-200">
+    {links.map((link) => (
+      <li>
+        <a href={link.href} class="block py-2 hover:text-white transition-colors">{link.label}</a>
+      </li>
+    ))}
+  </ul>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+
+  toggle?.addEventListener("click", () => {
+    const isHidden = menu?.classList.contains("hidden");
+    menu?.classList.toggle("hidden");
+    menu?.classList.toggle("flex");
+    iconOpen?.classList.toggle("hidden");
+    iconClose?.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", String(!!isHidden));
+  });
+
+  menu?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      menu.classList.remove("flex");
+      iconOpen?.classList.remove("hidden");
+      iconClose?.classList.add("hidden");
+    })
+  );
+</script>

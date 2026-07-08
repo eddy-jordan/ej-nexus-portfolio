@@ -1,0 +1,163 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const BASE = import.meta.env.BASE_URL;
+
+const skills = {
+  "Programming & Tools": [
+    "Python (Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn)",
+    "Jupyter Notebook",
+    "HTML/CSS and JavaScript",
+    "Flask (REST API development)",
+    "Django",
+    "Git & GitHub (version control)",
+  ],
+  "Machine Learning": [
+    "Multi-class classification",
+    "Supervised learning (Logistic Regression, Decision Trees, Random Forest)",
+    "Feature selection & feature importance analysis",
+    "Model evaluation (Accuracy, Precision, Recall, F1-Score, ROC-AUC, Confusion Matrix)",
+    "Handling imbalanced datasets (class weighting)",
+  ],
+  "Data Skills": [
+    "Data cleaning & preprocessing",
+    "Exploratory Data Analysis (EDA)",
+    "Data visualization",
+    "Feature scaling/normalization (StandardScaler)",
+    "Train/test splitting & stratified sampling",
+  ],
+  "Deployment & Engineering": [
+    "REST API design",
+    "Model serialization (joblib/pickle)",
+    "Web application deployment (Render, cloud hosting)",
+    "Full-stack development (frontend + backend integration)",
+  ],
+  "Design & Media": ["Canva", "Brand identity & logo design"],
+  "Cybersecurity & Networking": [
+    "Network security monitoring, threat analysis, incident documentation",
+    "Basic network administration, TCP/IP protocols",
+    "Windows OS, Linux (basic)",
+  ],
+};
+---
+
+<Layout title="Resume — Oluwamurewa Oyetoro" description="Resume of Oluwamurewa Oyetoro (Eddy Jordan) — Machine Learning Engineer & Full-Stack Developer.">
+  <Header />
+  <main class="pt-32 pb-24 px-6">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+        <div>
+          <h1 class="font-display text-3xl font-semibold tracking-tight">Oluwamurewa Abidoye Oyetoro</h1>
+          <p class="text-cyan-glow text-sm mt-1">Machine Learning Engineer &middot; Full-Stack Developer</p>
+        </div>
+        <a
+          href={`${BASE}resume/Oluwamurewa_Oyetoro_Resume.docx`}
+          class="px-5 py-2.5 rounded-full font-medium text-sm bg-gradient-to-r from-violet-500 to-cyan-400 text-ink-950 hover:opacity-90 transition-opacity whitespace-nowrap"
+        >
+          Download .docx
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-400 mb-12 pb-8 border-b border-white/10">
+        <span>+233 504116004</span>
+        <span>+234 9157734263</span>
+        <a href="mailto:oyetoroedward@gmail.com" class="hover:text-white transition-colors">oyetoroedward@gmail.com</a>
+      </div>
+
+      <section class="mb-12">
+        <h2 class="font-display text-xl font-semibold text-white mb-3">Personal Statement</h2>
+        <p class="text-ink-200 leading-relaxed">
+          A motivated and detail-oriented Information Technology graduate with hands-on
+          experience in technical operations gained through an internship at the Nigerian
+          Army Cyber Warfare Command. Demonstrates strong analytical, organizational, and
+          problem-solving skills honed in a high-stakes defense environment. Eager to
+          contribute effectively to organizational operations and leverage a solid foundation
+          in IT while gaining further practical experience.
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="font-display text-xl font-semibold text-white mb-4">Education</h2>
+        <div class="space-y-4">
+          <div>
+            <p class="font-medium text-ink-100">Methodist University Ghana — B.Sc. Information Technology</p>
+            <p class="text-sm text-ink-400">August 2022 – May 2026</p>
+            <p class="text-sm text-ink-200 mt-1">Final Year Project: Smart Internship Placement and Tracking System (SIPTS)</p>
+          </div>
+          <div>
+            <p class="font-medium text-ink-100">Future Tech Leaders Africa — AI in Machine Learning</p>
+            <p class="text-sm text-ink-400">May 2026 (ongoing)</p>
+          </div>
+          <div>
+            <p class="font-medium text-ink-100">Livingstone College of Art and Science — WASSCE and NECO Certificate</p>
+            <p class="text-sm text-ink-400">September 2015 – November 2021</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="font-display text-xl font-semibold text-white mb-4">Internship Experience</h2>
+        <div>
+          <p class="font-medium text-ink-100">Nigerian Army Cyber Warfare Command — IT/Cybersecurity Intern</p>
+          <p class="text-sm text-ink-400 mb-2">June 2025 – August 2025</p>
+          <ul class="space-y-1.5">
+            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Supported cyber defence operations in a structured military environment, gaining hands-on exposure to cybersecurity frameworks and protocols</span></li>
+            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Assisted in monitoring and analysing network activity to help identify and respond to potential threats</span></li>
+            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Maintained accurate documentation of technical processes, incidents, and operational procedures</span></li>
+            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Collaborated with defence IT personnel to support the integrity and security of information systems</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="font-display text-xl font-semibold text-white mb-4">Technical Skills</h2>
+        <div class="grid sm:grid-cols-2 gap-6">
+          {Object.entries(skills).map(([group, items]) => (
+            <div>
+              <p class="font-medium text-cyan-glow text-sm mb-2">{group}</p>
+              <ul class="space-y-1.5">
+                {items.map((item) => (
+                  <li class="text-sm text-ink-200 flex gap-2.5">
+                    <span class="text-ink-400 mt-0.5">&#8226;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="font-display text-xl font-semibold text-white mb-4">Projects</h2>
+        <div class="space-y-4">
+          <div>
+            <p class="font-medium text-ink-100">Diabetes Risk Prediction System</p>
+            <p class="text-sm text-ink-400 mb-1">Python, Scikit-learn, Flask, HTML/CSS/JS</p>
+            <ul class="space-y-1.5">
+              <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Built and deployed a multi-class ML model predicting diabetes risk from clinical data, achieving 99.5% accuracy using Random Forest</span></li>
+              <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Performed EDA and feature engineering on a 1,000-record medical dataset, identifying HbA1c and BMI as key predictive features</span></li>
+              <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Trained and benchmarked 3 classification algorithms, selecting the best model based on accuracy, recall, and F1-score</span></li>
+              <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Designed and deployed a full-stack web application enabling real-time predictions, hosted live on Render</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-sm text-ink-400 mt-4">
+          See the <a href={`${BASE}#projects`} class="text-cyan-glow hover:underline">Projects section</a> for the full list, including Aromallure and the Loan Approval Predictor.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-xl font-semibold text-white mb-3">Core & Professional Competencies</h2>
+        <div class="flex flex-wrap gap-2">
+          {["Communication", "Teamwork", "Time Management", "Problem-Solving", "Adaptability", "Leadership & Team Management", "Agile & Remote Collaboration", "Strategic Planning & Coordination", "Client Relations & Branding"].map((c) => (
+            <span class="text-xs text-ink-200 bg-white/5 rounded-md px-2.5 py-1">{c}</span>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
