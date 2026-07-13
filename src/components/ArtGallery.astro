@@ -1,6 +1,27 @@
 ---
+import { Image, getImage } from "astro:assets";
 import { artPieces } from "../data/art";
-const BASE = import.meta.env.BASE_URL;
+
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/art/*.jpg",
+  { eager: true }
+);
+
+const gallery = await Promise.all(
+  artPieces.map(async (art) => {
+    const mod = imageModules[`/src/assets/art/${art.file}`];
+    if (!mod) throw new Error(`Missing art asset for ${art.slug}: ${art.file}`);
+    const full = await getImage({ src: mod.default, width: 1400, format: "webp" });
+    return { ...art, image: mod.default, fullSrc: full.src };
+  })
+);
+
+const lightboxData = gallery.map(({ title, medium, description, fullSrc }) => ({
+  title,
+  medium,
+  description,
+  src: fullSrc,
+}));
 ---
 
 <section id="art" class="relative px-6 py-24 border-t border-white/5">
@@ -15,16 +36,20 @@ const BASE = import.meta.env.BASE_URL;
     </p>
 
     <div class="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
-      {artPieces.map((art, i) => (
+      {gallery.map((art, i) => (
         <button
           type="button"
           class="art-thumb block w-full break-inside-avoid rounded-xl overflow-hidden border border-white/10 group relative"
           data-index={i}
         >
-          <img
-            src={`${BASE}${art.src.replace(/^\//, "")}`}
+          <Image
+            src={art.image}
             alt={art.title}
+            widths={[240, 360, 480]}
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            format="webp"
             loading="lazy"
+            decoding="async"
             class="w-full h-auto group-hover:scale-105 transition-transform duration-300"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -69,7 +94,7 @@ const BASE = import.meta.env.BASE_URL;
   </div>
 </section>
 
-<script define:vars={{ artPieces, BASE }}>
+<script define:vars={{ lightboxData }}>
   const thumbs = document.querySelectorAll(".art-thumb");
   const lightbox = document.getElementById("lightbox");
   const img = document.getElementById("lightbox-img");
@@ -84,8 +109,8 @@ const BASE = import.meta.env.BASE_URL;
 
   function open(index) {
     current = index;
-    const art = artPieces[current];
-    img.src = `${BASE}${art.src.replace(/^\//, "")}`;
+    const art = lightboxData[current];
+    img.src = art.src;
     img.alt = art.title;
     titleEl.textContent = art.title;
     mediumEl.textContent = art.medium;
@@ -102,7 +127,7 @@ const BASE = import.meta.env.BASE_URL;
   }
 
   function step(delta) {
-    open((current + delta + artPieces.length) % artPieces.length);
+    open((current + delta + lightboxData.length) % lightboxData.length);
   }
 
   thumbs.forEach((thumb) => {

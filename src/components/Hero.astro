@@ -49,17 +49,63 @@ const BASE = import.meta.env.BASE_URL;
 
     <div class="mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto text-center">
       <div>
-        <p class="font-display text-2xl font-semibold gradient-text">99.5%</p>
+        <p class="font-display text-2xl font-semibold gradient-text stat-value" data-target="99.5" data-decimals="1" data-suffix="%">0%</p>
         <p class="text-xs text-ink-400 mt-1 tracking-wide">model accuracy</p>
       </div>
       <div>
-        <p class="font-display text-2xl font-semibold gradient-text">5</p>
+        <p class="font-display text-2xl font-semibold gradient-text stat-value" data-target="5" data-decimals="0" data-suffix="">0</p>
         <p class="text-xs text-ink-400 mt-1 tracking-wide">ML &amp; full-stack projects</p>
       </div>
       <div>
-        <p class="font-display text-2xl font-semibold gradient-text">11+</p>
+        <p class="font-display text-2xl font-semibold gradient-text stat-value" data-target="11" data-decimals="0" data-suffix="+">0+</p>
         <p class="text-xs text-ink-400 mt-1 tracking-wide">original artworks</p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const statEls = document.querySelectorAll<HTMLElement>(".stat-value");
+
+  function formatValue(value: number, decimals: number, suffix: string) {
+    return `${value.toFixed(decimals)}${suffix}`;
+  }
+
+  function animateStat(el: HTMLElement) {
+    const target = parseFloat(el.dataset.target ?? "0");
+    const decimals = Number(el.dataset.decimals ?? "0");
+    const suffix = el.dataset.suffix ?? "";
+
+    if (prefersReducedMotion) {
+      el.textContent = formatValue(target, decimals, suffix);
+      return;
+    }
+
+    const duration = 1200;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = formatValue(target * eased, decimals, suffix);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateStat(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  statEls.forEach((el) => observer.observe(el));
+</script>
