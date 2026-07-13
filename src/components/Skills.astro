@@ -4,20 +4,32 @@ const skillGroups = [
     title: "Machine Learning",
     accent: "text-violet-glow",
     skills: [
-      "Python (Pandas, NumPy, Scikit-learn)",
-      "Logistic Regression, Decision Trees, Random Forest",
+      "Python (Pandas, NumPy, Scikit-learn, PyTorch, XGBoost)",
+      "Logistic Regression, Decision Trees, Random Forest, Gradient Boosting",
+      "Transfer learning & fine-tuning (ResNet50)",
       "Feature engineering & selection",
       "Model evaluation (Accuracy, Precision, Recall, F1, ROC-AUC)",
-      "Imbalanced data handling (class weighting)",
       "EDA & data visualization (Matplotlib, Seaborn)",
+    ],
+  },
+  {
+    title: "MLOps & Deployment",
+    accent: "text-blue-400",
+    skills: [
+      "Experiment tracking (MLflow)",
+      "Docker containerization",
+      "FastAPI & Flask APIs",
+      "ONNX Runtime model optimization",
+      "Data drift detection (Evidently AI)",
+      "CI/CD pipelines (GitHub Actions)",
     ],
   },
   {
     title: "Full-Stack Development",
     accent: "text-cyan-glow",
     skills: [
-      "Flask & Django (REST API design)",
-      "HTML / CSS / JavaScript",
+      "Django & Flask (REST API design)",
+      "HTMX & Alpine.js",
       "PostgreSQL & SQLite",
       "Model serialization (joblib / pickle)",
       "Deployment (Render, cloud hosting)",
@@ -46,7 +58,7 @@ const skillGroups = [
       What I work with
     </h2>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {skillGroups.map((group) => (
         <div class="glass rounded-2xl p-6">
           <h3 class={`font-display font-semibold mb-4 ${group.accent}`}>{group.title}</h3>

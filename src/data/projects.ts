@@ -10,6 +10,9 @@ export interface Project {
   highlights: string[];
   liveUrl?: string;
   repoUrl?: string;
+  /** Use when a project ships more than one live demo (e.g. multiple deployed services). */
+  demos?: { label: string; url: string }[];
+  featured?: boolean;
   accent: string;
 }
 
@@ -21,18 +24,41 @@ export const categoryLabels: Record<Category, string> = {
 
 export const projects: Project[] = [
   {
+    slug: "mlops-portfolio",
+    title: "MLOps Portfolio — Credit Risk & Medical Imaging",
+    tagline: "Two production ML systems, one self-updating MLOps pipeline",
+    description:
+      "A leakage-safe credit risk classifier and a chest X-ray pneumonia detector, both served through Dockerized FastAPI APIs behind a GitHub Actions pipeline that retrains, evaluates against the live production baseline, and only redeploys a new model when it actually improves.",
+    categories: ["ml", "fullstack"],
+    featured: true,
+    stack: ["Python", "PyTorch", "Scikit-learn", "MLflow", "Docker", "FastAPI", "ONNX Runtime", "Evidently AI", "GitHub Actions"],
+    highlights: [
+      "Leakage-safe preprocessing pipeline; tracked 12 training runs in MLflow, selecting a Gradient Boosting classifier at 93.4% accuracy and 0.949 AUC-ROC",
+      "Fine-tuned a ResNet50 (PyTorch transfer learning) for pneumonia detection from chest X-rays, reaching 95% recall with early stopping and LR scheduling",
+      "Converted the model to ONNX Runtime, cutting inference latency 72.9% (366ms → 99ms) with no loss in accuracy",
+      "Containerized the FastAPI prediction service with Docker and added automated data drift detection with Evidently AI",
+      "Self-updating GitHub Actions CI/CD pipeline: retrains, evaluates against the production baseline, and auto-deploys only if the new model improves",
+    ],
+    demos: [
+      { label: "Credit Risk Demo", url: "https://jobkaton.onrender.com" },
+      { label: "Pneumonia X-Ray Demo", url: "https://pneumonia-api-ffo7.onrender.com" },
+    ],
+    repoUrl: "https://github.com/eddy-jordan/jobkaton",
+    accent: "from-blue-500 to-violet-500",
+  },
+  {
     slug: "aromallure",
     title: "Aromallure",
     tagline: "Elegance in a Bottle — a full-stack perfume e-commerce store",
     description:
-      "A production e-commerce storefront built end-to-end on Django: product catalog, cart and checkout flow, admin dashboard for store management, cloud image storage, and transactional email. Designed the brand identity, logo, and homepage entrance animation myself, then engineered the backend to serve it.",
+      "A freelance client project: a full-stack Django + HTMX + Alpine.js e-commerce storefront processing real customer orders through Mobile Money, with an admin dashboard, cloud image storage, and transactional email. Designed the brand identity, logo, and homepage entrance animation myself, then engineered the backend to serve it.",
     categories: ["fullstack", "design"],
-    stack: ["Django", "PostgreSQL", "Cloudinary", "Resend", "Whitenoise", "Render"],
+    stack: ["Django", "HTMX", "Alpine.js", "PostgreSQL", "Cloudinary", "Resend", "Render"],
     highlights: [
-      "Full storefront: catalog, cart, checkout, and order management",
+      "Full storefront: catalog, cart, checkout, and order management, processing real orders via Mobile Money integration",
       "Custom brand identity and logo design, background-removed and composited by hand",
-      "Homepage entrance animation respecting prefers-reduced-motion and working without JS",
-      "Deployed to production with Postgres, Cloudinary media storage, and Gunicorn",
+      "Custom admin dashboard, Cloudinary media pipeline, and automated transactional email system",
+      "Deployed to production on Render with a custom domain",
     ],
     liveUrl: "https://aromallure.store/",
     repoUrl: "https://github.com/eddy-jordan/aromallure",
@@ -65,7 +91,7 @@ export const projects: Project[] = [
     categories: ["ml"],
     stack: ["Python", "Streamlit", "Scikit-learn", "Random Forest"],
     highlights: [
-      "Approve/Reject prediction with a visual confidence gauge",
+      "Random Forest classifier reaching 83.7% accuracy on Approve/Reject prediction, with a visual confidence gauge",
       "'Why This Decision' explainability panel built on feature importance scores",
       "Built-in EMI (monthly repayment) calculator",
       "Reference statistics pipeline for comparing an applicant against the training distribution",
@@ -73,5 +99,20 @@ export const projects: Project[] = [
     liveUrl: "https://eddy-jordan-new-loan-app-s7or6j.streamlit.app/",
     repoUrl: "https://github.com/eddy-jordan/new_loan",
     accent: "from-cyan-400 to-emerald-400",
+  },
+  {
+    slug: "house-price-prediction",
+    title: "House Price Prediction",
+    tagline: "XGBoost regression with a 79-feature preprocessing pipeline",
+    description:
+      "A regression model predicting house prices, built around a heavily engineered 79-feature preprocessing pipeline and tuned through regularization to control overfitting on a high-dimensional feature set.",
+    categories: ["ml"],
+    stack: ["Python", "XGBoost", "Scikit-learn", "Pandas"],
+    highlights: [
+      "XGBoost regression model reaching an R² of 0.90",
+      "79-feature preprocessing pipeline covering encoding, scaling, and feature engineering",
+      "33% RMSE improvement through regularization tuning",
+    ],
+    accent: "from-orange-400 to-amber-300",
   },
 ];
