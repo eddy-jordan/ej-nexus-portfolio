@@ -59,8 +59,8 @@ const skillGroups = [
     </h2>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {skillGroups.map((group) => (
-        <div class="glass rounded-2xl p-6">
+      {skillGroups.map((group, i) => (
+        <div data-reveal style={`--reveal-delay: ${i * 90}ms`} class="glass rounded-2xl p-6">
           <h3 class={`font-display font-semibold mb-4 ${group.accent}`}>{group.title}</h3>
           <ul class="space-y-2.5">
             {group.skills.map((skill) => (

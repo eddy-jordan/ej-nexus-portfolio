@@ -34,13 +34,15 @@ const filters: { key: Category | "all"; label: string }[] = [
     </div>
 
     <div id="project-grid" class="grid md:grid-cols-2 gap-6">
-      {projects.map((project) => (
+      {projects.map((project, i) => (
         <article
           class:list={[
             "project-card glass rounded-2xl p-6 flex flex-col",
             project.featured && "md:col-span-2",
           ]}
           data-categories={project.categories.join(",")}
+          data-reveal
+          style={`--reveal-delay: ${Math.min(i, 4) * 100}ms`}
         >
           <div class={`h-1.5 w-16 rounded-full bg-gradient-to-r ${project.accent} mb-5`}></div>
 

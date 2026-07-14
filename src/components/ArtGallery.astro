@@ -41,6 +41,8 @@ const lightboxData = gallery.map(({ title, medium, description, fullSrc }) => ({
           type="button"
           class="art-thumb block w-full break-inside-avoid rounded-xl overflow-hidden border border-white/10 group relative"
           data-index={i}
+          data-reveal
+          style={`--reveal-delay: ${(i % 4) * 90}ms`}
         >
           <Image
             src={art.image}
