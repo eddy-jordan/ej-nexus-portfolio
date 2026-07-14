@@ -10,12 +10,12 @@ deployed as a static site to GitHub Pages.
 
 ```
 src/
-├── components/     Header, Hero, About, Skills, Projects, ArtGallery, Resume, Contact, Footer
+├── assets/art/     artwork image files, optimized via astro:assets
+├── components/     Header, Hero, About, Skills, Projects, ArtGallery, Resume, Contact, Footer, ScrollEffects
 ├── data/           projects.ts, art.ts — edit these to add/update content
 ├── layouts/        Layout.astro — shared <head>, fonts, global styles
 └── pages/          index.astro (home), resume.astro (full CV)
 public/
-├── images/art/     artwork images used by the gallery
 └── resume/         downloadable resume .docx
 ```
 
@@ -32,7 +32,11 @@ public/
 
 - **Projects** — edit `src/data/projects.ts`. Each entry needs a `categories` array
   (`"ml"`, `"fullstack"`, `"design"`) which drives the filter buttons on the homepage.
-- **Artwork** — edit `src/data/art.ts` and drop new images into `public/images/art/`.
+  Use `featured: true` to span a card full-width with a badge, and `demos: [{ label, url }]`
+  instead of `liveUrl` for a project with more than one deployed service.
+- **Artwork** — drop the image file into `src/assets/art/`, then add a matching entry to
+  `src/data/art.ts` referencing it by filename (`file: "your-file.jpg"`). Both steps are
+  required — the gallery build fails if an entry has no matching asset.
 - **Resume** — the full CV lives directly in `src/pages/resume.astro`; the downloadable
   file is `public/resume/Oluwamurewa_Oyetoro_Resume.docx` (swap in a new version any time,
   just keep the filename or update the links that reference it).
