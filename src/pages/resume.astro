@@ -36,9 +36,9 @@ const additionalProjects = [
 ];
 ---
 
-<Layout title="Resume — Oluwamurewa Oyetoro" description="Resume of Oluwamurewa Oyetoro (Eddy Jordan) — Machine Learning Engineer & Full-Stack Developer.">
+<Layout title="Resume, Oluwamurewa Oyetoro" description="Resume of Oluwamurewa Oyetoro (Eddy Jordan), Machine Learning Engineer & Full-Stack Developer.">
   <Header />
-  <main class="pt-32 pb-24 px-6">
+  <main class="pt-28 pb-16 px-6">
     <div class="mx-auto max-w-3xl">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
         <div>
@@ -53,7 +53,7 @@ const additionalProjects = [
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-400 mb-12 pb-8 border-b border-white/10">
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-400 mb-8 pb-6 border-b border-white/10">
         <span>Accra, Ghana</span>
         <a href="mailto:oyetoroedward@gmail.com" class="hover:text-white transition-colors">oyetoroedward@gmail.com</a>
         <span>+233 50 411 6004</span>
@@ -63,7 +63,7 @@ const additionalProjects = [
         </a>
       </div>
 
-      <section class="mb-12">
+      <section class="mb-8">
         <h2 class="font-display text-xl font-semibold text-white mb-3">Summary</h2>
         <p class="text-ink-200 leading-relaxed">
           Machine Learning Engineer with hands-on experience building and deploying
@@ -73,7 +73,7 @@ const additionalProjects = [
         </p>
       </section>
 
-      <section class="mb-12">
+      <section class="mb-8">
         <h2 class="font-display text-xl font-semibold text-white mb-4">Skills</h2>
         <div class="grid sm:grid-cols-3 gap-6">
           {Object.entries(skills).map(([group, items]) => (
@@ -92,7 +92,7 @@ const additionalProjects = [
         </div>
       </section>
 
-      <section class="mb-12">
+      <section class="mb-8">
         <h2 class="font-display text-xl font-semibold text-white mb-4">Featured Project</h2>
         <div>
           <p class="font-medium text-ink-100">MLOps Portfolio: Credit Risk &amp; Medical Imaging Systems</p>
@@ -104,12 +104,12 @@ const additionalProjects = [
             <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Fine-tuned a ResNet50 (PyTorch transfer learning) for pneumonia detection from chest X-rays, achieving 95% recall; applied early stopping and LR scheduling to prevent overfitting</span></li>
             <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Converted the model to ONNX Runtime, cutting inference latency 72.9% (366ms &rarr; 99ms) with no loss in prediction accuracy</span></li>
             <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Containerized a FastAPI prediction service with Docker and implemented automated data drift detection with Evidently AI</span></li>
-            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Designed a GitHub Actions CI/CD pipeline that retrains, evaluates against the production baseline, and auto-deploys a new model only if it improves — live and self-updating</span></li>
+            <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Designed a GitHub Actions CI/CD pipeline that retrains, evaluates against the production baseline, and auto-deploys a new model only if it improves, live and self-updating</span></li>
           </ul>
         </div>
       </section>
 
-      <section class="mb-12">
+      <section class="mb-8">
         <h2 class="font-display text-xl font-semibold text-white mb-4">Additional ML Projects</h2>
         <ul class="space-y-3">
           {additionalProjects.map((p) => (
@@ -123,11 +123,11 @@ const additionalProjects = [
         </p>
       </section>
 
-      <section class="mb-12">
+      <section class="mb-8">
         <h2 class="font-display text-xl font-semibold text-white mb-4">Experience</h2>
         <div class="space-y-8">
           <div>
-            <p class="font-medium text-ink-100">Freelance Web Developer — Aromallure (client e-commerce platform)</p>
+            <p class="font-medium text-ink-100">Freelance Web Developer, Aromallure (client e-commerce platform)</p>
             <p class="text-sm text-ink-400 mb-2">2025</p>
             <ul class="space-y-1.5">
               <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Designed and deployed a full-stack Django + HTMX + Alpine.js e-commerce platform for a client, handling real orders via Mobile Money integration</span></li>
@@ -135,7 +135,7 @@ const additionalProjects = [
             </ul>
           </div>
           <div>
-            <p class="font-medium text-ink-100">IT Intern, Cyber Defense &amp; Network Monitoring — Nigerian Army Cyber Warfare Command</p>
+            <p class="font-medium text-ink-100">IT Intern, Cyber Defense &amp; Network Monitoring, Nigerian Army Cyber Warfare Command</p>
             <p class="text-sm text-ink-400 mb-2">June 2025 – August 2025</p>
             <ul class="space-y-1.5">
               <li class="text-sm text-ink-200 flex gap-2.5"><span class="text-ink-400 mt-0.5">&#8226;</span><span>Monitored network activity and supported cyber defense operations within a military cybersecurity unit</span></li>
@@ -148,7 +148,7 @@ const additionalProjects = [
       <section>
         <h2 class="font-display text-xl font-semibold text-white mb-4">Education</h2>
         <div>
-          <p class="font-medium text-ink-100">BSc Information Technology — Methodist University Ghana, Accra</p>
+          <p class="font-medium text-ink-100">BSc Information Technology, Methodist University Ghana, Accra</p>
           <p class="text-sm text-ink-400">Expected 2026</p>
         </div>
       </section>

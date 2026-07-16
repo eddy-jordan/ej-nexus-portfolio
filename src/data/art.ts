@@ -65,7 +65,7 @@ export const artPieces: ArtPiece[] = [
   },
   {
     slug: "mia",
-    title: "Ink Portrait — Mia",
+    title: "Ink Portrait, Mia",
     medium: "Fineliner ink on paper",
     file: "art-09-mia.jpg",
     description: "A film-inspired portrait built from dense linework, focused on capturing mood through eyes and shadow.",

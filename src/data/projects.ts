@@ -25,7 +25,7 @@ export const categoryLabels: Record<Category, string> = {
 export const projects: Project[] = [
   {
     slug: "mlops-portfolio",
-    title: "MLOps Portfolio — Credit Risk & Medical Imaging",
+    title: "MLOps Portfolio, Credit Risk & Medical Imaging",
     tagline: "Two production ML systems, one self-updating MLOps pipeline",
     description:
       "A leakage-safe credit risk classifier and a chest X-ray pneumonia detector, both served through Dockerized FastAPI APIs behind a GitHub Actions pipeline that retrains, evaluates against the live production baseline, and only redeploys a new model when it actually improves.",
@@ -49,7 +49,7 @@ export const projects: Project[] = [
   {
     slug: "aromallure",
     title: "Aromallure",
-    tagline: "Elegance in a Bottle — a full-stack perfume e-commerce store",
+    tagline: "Elegance in a Bottle, a full-stack perfume e-commerce store",
     description:
       "A freelance client project: a full-stack Django + HTMX + Alpine.js e-commerce storefront processing real customer orders through Mobile Money, with an admin dashboard, cloud image storage, and transactional email. Designed the brand identity, logo, and homepage entrance animation myself, then engineered the backend to serve it.",
     categories: ["fullstack", "design"],
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     stack: ["Python", "Scikit-learn", "Flask", "HTML/CSS/JS", "Render"],
     highlights: [
       "99.5% accuracy Random Forest classifier, benchmarked against Logistic Regression and Decision Trees",
-      "EDA and feature engineering on a 1,000-record clinical dataset — HbA1c and BMI identified as key predictors",
+      "EDA and feature engineering on a 1,000-record clinical dataset, HbA1c and BMI identified as key predictors",
       "Model serialized with joblib and served through a Flask REST API",
       "Custom frontend for real-time risk prediction, deployed live on Render",
     ],
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     title: "Loan Approval Predictor",
     tagline: "ML-powered loan decisioning with an explainability panel",
     description:
-      "A Streamlit application that predicts loan approval outcomes with a confidence gauge, an EMI calculator, and a 'Why This Decision' panel that surfaces the feature importances behind each prediction — built to make a black-box model legible to a non-technical end user.",
+      "A Streamlit application that predicts loan approval outcomes with a confidence gauge, an EMI calculator, and a 'Why This Decision' panel that surfaces the feature importances behind each prediction, built to make a black-box model legible to a non-technical end user.",
     categories: ["ml"],
     stack: ["Python", "Streamlit", "Scikit-learn", "Random Forest"],
     highlights: [
