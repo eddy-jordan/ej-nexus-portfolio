@@ -65,6 +65,42 @@ export const projects: Project[] = [
     accent: "from-fuchsia-500 to-amber-400",
   },
   {
+    slug: "stride-shoe-store",
+    title: "STRIDE",
+    tagline: "Full-stack shoe store with role-based admin and live payments",
+    description:
+      "A production e-commerce shoe store built on Next.js and Postgres, with a category and size filtered catalog, cart, Paystack checkout, customer order history, and a role-gated admin dashboard for inventory and orders.",
+    categories: ["fullstack"],
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL (Neon)", "Auth.js", "Paystack", "Vercel Blob"],
+    highlights: [
+      "Checkout re-validates every price and stock level server-side inside a transaction, never trusting client-submitted totals",
+      "Payment confirmation runs through two independent, idempotent paths, a webhook and a redirect callback, both converging on the same order-fulfillment logic",
+      "Role-based access (CUSTOMER/ADMIN) enforced in middleware and again server-side on every admin route",
+      "Scheduled cron job sweeps abandoned pending orders to failed after an hour",
+    ],
+    liveUrl: "https://shoe-store-six-nu.vercel.app/",
+    repoUrl: "https://github.com/eddy-jordan/shoe_store",
+    accent: "from-emerald-500 to-teal-400",
+  },
+  {
+    slug: "cloth-store",
+    title: "Cloth Store",
+    tagline: "Clothing storefront with a custom glassmorphism theme system",
+    description:
+      "A full-stack clothing e-commerce platform (T-shirts, hoodies, outerwear, African wear) with guest checkout, an admin dashboard, and a hand-built glassmorphism design system with a persistent light/dark toggle.",
+    categories: ["fullstack", "design"],
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL (Neon)", "NextAuth", "Paystack", "Vercel Blob"],
+    highlights: [
+      "Guest-friendly checkout, no order is created in the database until Paystack payment actually succeeds",
+      "Idempotent dual-path order fulfillment (webhook + success-page verification) safely races without double-fulfilling",
+      "Custom glassmorphism theme system with a light/dark toggle driven by a data-theme attribute, not just prefers-color-scheme",
+      "Admin product image uploads go straight from the browser to Vercel Blob, bypassing serverless body-size limits",
+    ],
+    liveUrl: "https://cloth-store-plum.vercel.app/",
+    repoUrl: "https://github.com/eddy-jordan/cloth_store",
+    accent: "from-rose-500 to-pink-400",
+  },
+  {
     slug: "diabetes-risk-predictor",
     title: "Diabetes Risk Predictor",
     tagline: "Full-stack ML app predicting diabetes risk from clinical data",
