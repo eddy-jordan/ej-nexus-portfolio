@@ -89,6 +89,12 @@ hardcoded constant `FORMSPREE_ENDPOINT` in `Contact.astro`; the submit handler d
 `fetch()` and falls back to an inline message if the endpoint still contains the
 `YOUR_FORM_ID` placeholder.
 
+**Site copy avoids em-dashes.** All visible text (headings, descriptions, project/art data
+in `src/data/`) was deliberately rewritten to use commas instead of em-dashes as
+punctuation. Hyphens inside compound words (`full-stack`, `e-commerce`, `self-updating`)
+are unaffected, only the standalone `—` punctuation mark. Keep new copy consistent with
+this rather than reaching for an em-dash.
+
 ## Deployment
 
 `.github/workflows/deploy.yml` builds and deploys to GitHub Pages on every push to `main`
