@@ -50,10 +50,16 @@ for the lightbox. Adding new artwork means dropping the file in `src/assets/art/
 adding a matching entry to `art.ts` — the component throws a build error if an `art.ts`
 entry has no matching asset.
 
-**Critical gotcha: the site is deployed under a base path, not root.**
-`astro.config.mjs` sets `base: '/ej-nexus-portfolio/'` (GitHub Pages project site, not a
-custom domain). Every internal link/asset reference that isn't handled by `astro:assets`
-must be built from `import.meta.env.BASE_URL`, never a bare `/path` or bare `#hash`:
+**Critical gotcha: the site is deployed under a base path, not root, and that path
+differs per host.** This project deploys to both GitHub Pages and Vercel from the same
+`main` branch. GitHub Pages serves it as a project site under a subpath
+(`base: '/ej-nexus-portfolio/'`); Vercel serves it from its own domain root (`base: '/'`).
+`astro.config.mjs` picks between them at build time by checking `process.env.VERCEL`
+(set automatically by Vercel, absent in the GitHub Actions runner), so there is no manual
+toggle to remember when deploying, but it does mean `base` is never a fixed string you can
+assume while reading the code. Every internal link/asset reference that isn't handled by
+`astro:assets` must be built from `import.meta.env.BASE_URL`, never a bare `/path` or bare
+`#hash`:
 
 - Bare `href="#about"` only works from the homepage — it silently no-ops on any other page
   (this broke nav on `/resume` once already; fixed by prefixing every nav link with
@@ -97,12 +103,18 @@ this rather than reaching for an em-dash.
 
 ## Deployment
 
-`.github/workflows/deploy.yml` builds and deploys to GitHub Pages on every push to `main`
-via `actions/deploy-pages`. Two things this workflow does **not** handle, because they're
-one-time repo settings rather than code:
+Two independent deploy targets build from the same `main` branch; see the base-path note
+above for how they coexist.
 
-- GitHub Pages must be manually set to **Source: GitHub Actions** in repo Settings → Pages
-  before the first deploy will succeed (a push before this is done builds fine but fails at
-  the deploy step).
-- If the repo is ever renamed or forked under a different name/owner, both `site` and
-  `base` in `astro.config.mjs` need to be updated to match, or every internal link breaks.
+- **GitHub Pages**: `.github/workflows/deploy.yml` builds and deploys on every push to
+  `main` via `actions/deploy-pages`. This workflow does **not** handle one-time repo
+  settings: GitHub Pages must be manually set to **Source: GitHub Actions** in repo
+  Settings → Pages before the first deploy will succeed (a push before this is done builds
+  fine but fails at the deploy step). If the repo is ever renamed or forked under a
+  different name/owner, the GitHub Pages branch of `site`/`base` in `astro.config.mjs`
+  needs to be updated to match.
+- **Vercel**: no adapter needed since the site is fully static (`output: 'static'`,
+  the default). `vercel.json` pins `framework: "astro"` and the build command/output
+  directory, but Vercel would auto-detect these anyway. No environment variables are
+  required. If the production domain changes, update the Vercel branch of `site` in
+  `astro.config.mjs` (cosmetic only; `base` stays `'/'` regardless of domain).

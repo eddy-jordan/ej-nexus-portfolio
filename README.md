@@ -4,7 +4,7 @@ Personal portfolio for **Oluwamurewa Oyetoro (Eddy Jordan)** — Machine Learnin
 Full-Stack Developer, Designer, and Artist.
 
 Built with [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com),
-deployed as a static site to GitHub Pages.
+deployed as a static site to both GitHub Pages and Vercel.
 
 ## Project Structure
 
@@ -54,7 +54,18 @@ endpoint. To make it actually deliver emails:
 Until that's done, submitting the form shows a friendly fallback message pointing visitors
 to your email instead of silently failing.
 
-## Deploying to GitHub Pages
+## Deploying to both GitHub Pages and Vercel
+
+`astro.config.mjs` sets `base` and `site` based on whether `process.env.VERCEL` is set
+(Vercel sets this automatically on every build; GitHub Actions doesn't). This matters
+because GitHub Pages serves this project under a subpath
+(`https://eddy-jordan.github.io/ej-nexus-portfolio/`) while Vercel serves it from its own
+domain root, so the two builds need different `base` values or every internal link/image
+path breaks. You don't need to touch this switch when deploying to either target, it's
+automatic; only edit it if the GitHub Pages repo name or the Vercel production domain
+changes.
+
+### GitHub Pages
 
 This repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds
 and deploys automatically on every push to `main`.
@@ -62,13 +73,29 @@ and deploys automatically on every push to `main`.
 1. Push this project to a GitHub repo. The config here assumes the repo is named
    `ej-nexus-portfolio` under the `eddy-jordan` account, deploying to
    `https://eddy-jordan.github.io/ej-nexus-portfolio/`.
-   - If you use a different repo name, update `base` in `astro.config.mjs` to match
-     (`base: '/your-repo-name'`).
-   - If you deploy to a root user/org site (`eddy-jordan.github.io` repo itself), set
-     `base: '/'` instead.
+   - If you use a different repo name, update the GitHub Pages branch of `base` in
+     `astro.config.mjs` to match (`'/your-repo-name/'`).
+   - If you deploy to a root user/org site (`eddy-jordan.github.io` repo itself), set that
+     branch to `'/'` instead.
 2. In the GitHub repo settings, go to **Settings → Pages** and set **Source** to
    **GitHub Actions**.
 3. Push to `main` — the workflow builds the site and publishes `./dist` automatically.
+
+### Vercel
+
+No adapter or extra config is required beyond the `base`/`site` switch above and the
+included `vercel.json` (pins the framework and build output so Vercel doesn't have to
+guess).
+
+1. In the [Vercel dashboard](https://vercel.com/new), import this GitHub repo. Vercel
+   auto-detects Astro; leave the build command and output directory as-is.
+2. No environment variables are required, the site is fully static and the contact form
+   posts client-side straight to Formspree.
+3. Deploy. Every push to `main` triggers a new production deployment automatically; every
+   other branch/PR gets its own preview URL.
+4. If you attach a custom domain or the assigned `*.vercel.app` domain changes, update the
+   Vercel branch of `site` in `astro.config.mjs` to match (cosmetic only, used for
+   canonical URLs, `base` stays `'/'` regardless of domain).
 
 ## Local development
 
@@ -77,5 +104,6 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:4321/ej-nexus-portfolio/` (note the base path — it matches
-production so links behave the same locally).
+Visit `http://localhost:4321/ej-nexus-portfolio/` (note the base path, it matches the
+GitHub Pages production build so links behave the same locally; this is unrelated to how
+the site behaves once deployed to Vercel, where it serves from `/`).
