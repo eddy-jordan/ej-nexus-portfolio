@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal portfolio site for Oluwamurewa Oyetoro (Eddy Jordan) — ML Engineer, Full-Stack
 Developer, Designer, and Artist. Astro + Tailwind CSS v4, built as a fully static site and
-deployed to GitHub Pages under a non-root path.
+deployed to both GitHub Pages (under a non-root path) and Vercel.
 
 ## Commands
 
